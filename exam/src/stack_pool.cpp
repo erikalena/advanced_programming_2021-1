@@ -81,7 +81,7 @@ class stack_pool{
   stack_type new_stack()  noexcept { stack_type new_stack{0}; return new_stack; };  // return an empty stack
 
   void reserve(size_type n) { pool.reserve(n); }; // reserve n nodes in the pool
-  size_type capacity() const noexcept { return pool.capcity(); }; // the capacity of the pool
+  size_type capacity() const noexcept { return pool.capacity(); }; // the capacity of the pool
 
   /* 
      check if the stack taken as input is empty by 
