@@ -2,6 +2,7 @@
 #include <vector>
 #include <cassert>
 #include <algorithm>
+#include <iterator>
 #include <chrono>
 
 template <typename stack_pool, typename node_t, typename T>

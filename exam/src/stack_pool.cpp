@@ -3,6 +3,7 @@
 #include <cassert>
 #include <algorithm>
 #include <chrono>
+#include <iterator>
 
 struct index_invalid {
   std::string message;

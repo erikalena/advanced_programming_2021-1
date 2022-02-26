@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iterator>
 
 template <typename stack_pool, typename T, typename N = std::size_t>
 class _iterator {
