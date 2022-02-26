@@ -61,40 +61,40 @@ class stack_pool{
   using iterator = _iterator<stack_pool, node_t, value_type>;
   using const_iterator = _iterator<const stack_pool, const node_t, const value_type>;
 
-  iterator begin(stack_type x) { return iterator{this, &node(x)}; };
-  iterator end(stack_type ) { return iterator{this, &node(end())}; }; 
+  iterator begin(stack_type x) { return iterator{this, &node(x)}; }
+  iterator end(stack_type ) { return iterator{this, &node(end())}; }
     
-  const_iterator begin(stack_type x) const { return const_iterator{this, &node(x)}; };
-  const_iterator end(stack_type ) const { return const_iterator{this, &node(end())}; }; 
+  const_iterator begin(stack_type x) const { return const_iterator{this, &node(x)}; }
+  const_iterator end(stack_type ) const { return const_iterator{this, &node(end())}; } 
   
-  const_iterator cbegin(stack_type x) const {  return const_iterator{this,&node(x)}; };
-  const_iterator cend(stack_type ) const {  return const_iterator{this, &node(end())}; };
+  const_iterator cbegin(stack_type x) const {  return const_iterator{this,&node(x)}; }
+  const_iterator cend(stack_type ) const {  return const_iterator{this, &node(end())}; }
     
-  stack_type new_stack()  noexcept { stack_type new_stack{0}; return new_stack; };  // return an empty stack
+  stack_type new_stack()  noexcept { stack_type new_stack{0}; return new_stack; }  // return an empty stack
 
-  void reserve(size_type n) { pool.reserve(n); }; // reserve n nodes in the pool
-  size_type capacity() const noexcept { return pool.size(); }; // the capacity of the pool
+  void reserve(size_type n) { pool.reserve(n); } // reserve n nodes in the pool
+  size_type capacity() const noexcept { return pool.size(); } // the capacity of the pool
 
   /* 
      check if the stack taken as input is empty by 
      comparing top index and end of the stack, which 
      is always zero
   */
-  bool empty(stack_type x) const noexcept { if( x == end()) return true; else return 0;}; 
+  bool empty(stack_type x) const noexcept { if( x == end()) return true; else return 0;}
 
   stack_type end() const noexcept { return stack_type(0); }
 
   /*
     access the inner value of node at the given index
   */
-  T& value(stack_type x)  noexcept { return node(x).value; };
-  const T& value(stack_type x) const noexcept { return node(x).value; };
+  T& value(stack_type x)  noexcept { return node(x).value; }
+  const T& value(stack_type x) const noexcept { return node(x).value; }
   
   /*
     the following functions are to obtain the index of next node in the stack
   */
-  stack_type& next(stack_type x)  noexcept  { return node(x).next;};
-  const stack_type& next(stack_type x) const  noexcept { return node(x).next;};
+  stack_type& next(stack_type x)  noexcept  { return node(x).next;}
+  const stack_type& next(stack_type x) const  noexcept { return node(x).next;}
 
   /*
     the following functions return the following node in the stack
@@ -108,8 +108,8 @@ class stack_pool{
     the functions do not control if the index provided is the head of 
     one stack, since doing this would mean to increase class complexity.
   */
-  stack_type push(const T& val, stack_type head)  { return _push(val, head); }; 
-  stack_type push(T&& val, stack_type head) { return _push(std::move(val),head);};
+  stack_type push(const T& val, stack_type head)  { return _push(val, head); } 
+  stack_type push(T&& val, stack_type head) { return _push(std::move(val),head);}
   
 
   /* 
@@ -124,13 +124,13 @@ class stack_pool{
           free_nodes = free_node(x, free_nodes);
         }
         return head;
-    }; 
+    }
     stack_type free_node(stack_type x, stack_type free)  noexcept {
         stack_type tmp = free;
         free = x;
         next(free) = tmp;
         return free;
-    };
+    }
 
   /* 
     this function move all nodes in the given stack to the list
@@ -145,13 +145,13 @@ class stack_pool{
         next(x) = free_nodes;
         free_nodes = start;
         return end();
-    }; 
+    } 
 
     void print_stack (stack_type x) noexcept {
     for (auto it = begin(x); it != end(0); it++) 
         std::cout << *it << ' ';
     std::cout <<std::endl;
-    } ; 
+    } 
 
     private:
 
