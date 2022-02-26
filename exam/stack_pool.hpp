@@ -12,7 +12,7 @@ public:
     using difference_type = std::ptrdiff_t;
     using iterator_category = std::forward_iterator_tag;
     
-    explicit _iterator(stack_pool* pool, N x) : p{pool}, stack_index{x} {}
+    _iterator(stack_pool* pool, N x) : p{pool}, stack_index{x} {}
     reference operator*() const { return p->value(stack_index); }
 
     _iterator& operator++() {
@@ -52,7 +52,7 @@ class stack_pool{
 
   public:
   stack_pool() : free_nodes{end()} {};
-  explicit stack_pool(size_type n) : free_nodes{0} { pool.reserve(n); }; // reserve n nodes in the pool
+  explicit stack_pool(size_type n) : free_nodes{end()} { pool.reserve(n); }; // reserve n nodes in the pool
    ~stack_pool() = default;
 
   using iterator = _iterator<stack_pool, value_type, stack_type>;

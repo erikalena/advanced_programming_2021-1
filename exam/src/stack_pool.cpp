@@ -24,7 +24,7 @@ public:
     using difference_type = std::ptrdiff_t;
     using iterator_category = std::forward_iterator_tag;
     
-    explicit _iterator(stack_pool* pool, N x) : p{pool}, stack_index{x} {}
+    _iterator(stack_pool* pool, N x) : p{pool}, stack_index{x} {}
     reference operator*() const { return p->value(stack_index); }
 
     _iterator& operator++() {

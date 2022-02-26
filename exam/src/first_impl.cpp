@@ -18,7 +18,7 @@ public:
     using iterator_category = std::forward_iterator_tag;
     //
     
-    explicit _iterator(stack_pool* pool, node_t* x) :  p{pool}, current{x} {}
+    _iterator(stack_pool* pool, node_t* x) :  p{pool}, current{x} {}
     reference operator*() const { return current->value; }
     _iterator& operator++() { 
       current= &p->next_node(current->next);
