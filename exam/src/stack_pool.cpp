@@ -134,7 +134,7 @@ class stack_pool{
     this function move all nodes in the given stack to the list
     of free nodes by simply swapping their indexes.
   */
-    stack_type free_stack(stack_type x)noexcept { 
+    stack_type free_stack(stack_type x) noexcept { 
         const stack_type start = x;
         const stack_type next_idx = next(x);
         for (auto it = begin(next_idx); it != end(0); it++) {
@@ -147,10 +147,10 @@ class stack_pool{
 
   
 
-    void print_stack (stack_type x) noexcept {
-    for (auto it = begin(x); it != end(0); it++) 
-        std::cout << *it << ' ';
-    std::cout <<std::endl;
+    void print_stack (stack_type x) {
+      for (auto it = begin(x); it != end(0); it++) 
+          std::cout << *it << ' ';
+      std::cout <<std::endl;
     } 
 
     private:
@@ -179,7 +179,7 @@ int main() {
     l1 = pool.push(3, l1);
     l1 = pool.push(1, l1);
     l1 = pool.push(4, l1);
-    l1 = pool.push(4, -1);
+    l1 = pool.push(4, l1);
     l1 = pool.push(1, l1);
     l1 = pool.push(5, l1);
     l1 = pool.push(9, l1);
