@@ -53,7 +53,7 @@ class stack_pool{
   public:
   stack_pool() : free_nodes{end()} {};
   explicit stack_pool(size_type n) : free_nodes{end()} { pool.reserve(n); }; // reserve n nodes in the pool
-   ~stack_pool() = default;
+   ~stack_pool() noexcept = default;
 
   using iterator = _iterator<stack_pool, value_type, stack_type>;
   using const_iterator = _iterator<const stack_pool, const value_type, stack_type>;
@@ -128,7 +128,7 @@ class stack_pool{
     this function move all nodes in the given stack to the list
     of free nodes by simply swapping their indexes.
   */
-    stack_type free_stack(stack_type x)noexcept { 
+    stack_type free_stack(stack_type x) noexcept { 
         const stack_type start = x;
         const stack_type next_idx = next(x);
         for (auto it = begin(next_idx); it != end(0); it++) {

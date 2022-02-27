@@ -56,7 +56,7 @@ class stack_pool{
   public:
   stack_pool() : free_nodes{end()} {};
   explicit stack_pool(size_type n) : free_nodes{0} { pool.reserve(n); }; // reserve n nodes in the pool
-   ~stack_pool() = default;
+   ~stack_pool() noexcept = default;
 
   using iterator = _iterator<stack_pool, node_t, value_type>;
   using const_iterator = _iterator<const stack_pool, const node_t, const value_type>;
