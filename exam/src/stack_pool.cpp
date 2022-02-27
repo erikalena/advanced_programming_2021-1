@@ -5,12 +5,7 @@
 #include <chrono>
 #include <iterator>
 
-struct index_invalid {
-  std::string message;
-  index_invalid(std::string s) : message{std::move(s)} {}
-};
 
-enum class method { push, pop };
 
 
 template <typename stack_pool, typename T, typename N = std::size_t>
@@ -121,12 +116,6 @@ class stack_pool{
     A very simple control is made to check if stack is not empty.
   */
     stack_type pop(stack_type x) noexcept { 
-        try {
-            check_index(x, method::pop);
-        } catch (const index_invalid& s) {
-            std::cerr << s.message << std::endl;
-            return 1;
-        }
         stack_type head = x;
         if(!empty(x)) { 
           head = next(x);
@@ -156,22 +145,7 @@ class stack_pool{
         return end();
     }
 
-    void check_index(stack_type x, method m) {
-        switch(m) {
-            case method::push:
-                if (x < end())
-                    throw index_invalid{
-                        "You provided an invalid index: " + std::to_string(x) };
-                    break;
-            case method::pop:
-                if (x <= end())
-                    throw index_invalid{
-                    "You provided an invalid index: " + std::to_string(x) };
-                break;
-            default:
-                  std::cerr << "unknown insertion method" << std::endl;
-        }
-    }
+  
 
     void print_stack (stack_type x) noexcept {
     for (auto it = begin(x); it != end(0); it++) 
@@ -183,23 +157,17 @@ class stack_pool{
 
         template <typename D>
         stack_type _push(D&& val, stack_type head) {
-            try {
-                check_index(head, method::push);
-            } catch (const index_invalid& s) {
-                std::cerr << s.message << std::endl;
-                return 1;
-            }
             if(!empty(free_nodes)) { 
-                stack_type tmp = free_nodes;
-                free_nodes = next(free_nodes);
-                value(tmp) = std::forward<D>(val);
-                next(tmp) = head;
-                return tmp;
+              stack_type tmp = free_nodes;
+              free_nodes = next(free_nodes);
+              value(tmp) = std::forward<D>(val);
+              next(tmp) = head;
+              return tmp;
             }
             else  {
                 pool.push_back({std::forward<D>(val),head});
                 return pool.size();
-            }
+            }  
         }
 
 };
@@ -211,6 +179,7 @@ int main() {
     l1 = pool.push(3, l1);
     l1 = pool.push(1, l1);
     l1 = pool.push(4, l1);
+    l1 = pool.push(4, -1);
     l1 = pool.push(1, l1);
     l1 = pool.push(5, l1);
     l1 = pool.push(9, l1);
@@ -225,7 +194,7 @@ int main() {
     auto t_end = std::chrono::high_resolution_clock::now();
 
     auto t = std::chrono::duration_cast<std::chrono::nanoseconds>(t_end - t_start);
-    std::cout << t.count() << std::endl;
+    std::cout << "Time taken to iterate through the stack: " << t.count() << std::endl;
 
     auto l2 = pool.new_stack();
     l2 = pool.push(8, l2);

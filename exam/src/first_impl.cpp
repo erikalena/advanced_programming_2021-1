@@ -193,7 +193,7 @@ int main() {
     auto t_end = std::chrono::high_resolution_clock::now();
 
     auto t = std::chrono::duration_cast<std::chrono::nanoseconds>(t_end - t_start);
-    std::cout << t.count() << std::endl;
+    std::cout <<  "Time taken to iterate through the stack: " << t.count() << std::endl;
 
     auto l2 = pool.new_stack();
     l2 = pool.push(8, l2);
